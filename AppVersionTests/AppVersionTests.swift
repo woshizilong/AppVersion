@@ -21,6 +21,11 @@ class AppVersionTests: XCTestCase {
         super.tearDown()
     }
     
+    func testInitWithBundlePath(){
+        let nilVersion:Version? = Version(bundlePath: "AppVersionTests.xctest")
+        XCTAssertTrue(nilVersion == nil)
+    }
+    
     func testVersionEqual() {
         //等长
         XCTAssertTrue(Version(versionStringWithDot: "1.0.0") == Version(versionStringWithDot: "1.0.0"))
