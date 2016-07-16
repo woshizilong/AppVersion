@@ -1,5 +1,9 @@
 # AppVersion
 
+![](https://travis-ci.org/woshizilong/AppVersion.svg?branch=master)
+
+
+
 AppVersion是一个Swift Framework，适配[Semantic Versioning 2.0.0](http://semver.org)版本号系统。
 
 实现了如下协议:
