@@ -8,10 +8,30 @@
 
 import Foundation
 
+/**
+ *  ### AppVersion是一个Swift Framework，适配Semantic Versioning 2.0.0版本号系统。
+ 
+ #### 实现了如下协议:
+ 
+ - Equatable
+ - Comparable
+ - CustomStringConvertible
+ - StringLiteralConvertibleHashable
+
+ */
 struct Version: Equatable, Comparable, CustomStringConvertible, StringLiteralConvertible {
     let version: [Int]
     private let versionStringWithDot: String
 
+    /**
+     使用版本号字符串进行构造
+     
+     let version:Version = Version(versionStringWithDot: "1.0.1")
+     
+     - parameter versionStringWithDot: 用点连接的版本号字符串
+     
+     - returns: Version结构
+     */
     init(versionStringWithDot: String) {
         self.versionStringWithDot = versionStringWithDot
         version = versionStringWithDot.componentsSeparatedByString(".").map { (value) -> Int in
@@ -20,7 +40,8 @@ struct Version: Equatable, Comparable, CustomStringConvertible, StringLiteralCon
     }
 
     /**
-     利用Bundle的路径实例化
+     使用Bundle的路径进行构造
+     
      let version:Version = Version(bundlePath: "Alamofire.framework")
      
      - parameter bundlePath: Bundle的全路径
@@ -28,10 +49,12 @@ struct Version: Equatable, Comparable, CustomStringConvertible, StringLiteralCon
     init?(bundlePath: String) {
         let bundle:NSBundle? = NSBundle(path: bundlePath)
         
+        /// 这是一个可以失败的构造器
         if bundle == nil {
             return nil
         }
         
+        /// 使用Bundle文件的Plist文件中取得版本号
         let version:String = bundle!.infoDictionary!["CFBundleShortVersionString"] as! String
         self.init(versionStringWithDot: version)
     }
@@ -78,6 +101,9 @@ func == (left: Version, right: Version) -> Bool {
 
     let compareCount: Int = isLeftCountLong ? right.version.count : left.version.count
 
+    /**
+     *  如果相同位数部分有不等的数字，就判定为不相等
+     */
     for index in 0..<compareCount {
         if left.version[index] != right.version[index] {
             return false
@@ -85,15 +111,18 @@ func == (left: Version, right: Version) -> Bool {
     }
 
     if left.version.count == right.version.count {
+        /**
+         *  如果位数相同就判定为相等
+         */
         return true
     } else {
+        /// 判断位数长的Version结构剩下的位数，如果不全是'0'就判定为不相等，否则判定为相等
         let checkVersion: Version = isLeftCountLong ? left : right
         for value in checkVersion.version[compareCount..<checkVersion.version.count] {
             if value != 0 {
                 return false
             }
         }
-
         return true
     }
 }
