@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "AppVersion"
-  spec.version = "1.0.0"
+  spec.version = "1.0.1"
   spec.summary = "Sample version system for App."
   spec.description = <<-DESC
                      AppVersion is a Swift Library, compare version numbers.
