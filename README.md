@@ -1,8 +1,6 @@
 # AppVersion
 
-![](https://travis-ci.org/woshizilong/AppVersion.svg?branch=master)
-
-
+![](https://img.shields.io/badge/language-swift-orange.svg) ![](https://travis-ci.org/woshizilong/AppVersion.svg?branch=master) ![](https://img.shields.io/cocoapods/v/AppVersion.svg) ![](https://img.shields.io/badge/license-MIT-000000.svg)
 
 AppVersion是一个Swift Framework，适配[Semantic Versioning 2.0.0](http://semver.org)版本号系统。
 
